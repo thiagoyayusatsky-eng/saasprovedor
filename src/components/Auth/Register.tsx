@@ -7,15 +7,16 @@ export const Register: React.FC = () => {
   const navigate = useNavigate();
   const { register } = useAuth();
   const [fullName, setFullName] = useState('');
-  {/* Tipo de Conta */}
+{/* Tipo de Conta */}
 <div>
   <label className="block text-sm font-medium text-secondary-700 mb-2">
     Tipo de Conta
   </label>
 
   <select
-    className="w-full px-4 py-2.5 border border-secondary-200 rounded-xl focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition"
-    defaultValue="client"
+    value={role}
+    onChange={(e) => setRole(e.target.value)}
+    className="w-full px-4 py-2.5 border border-secondary-200 rounded-xl"
   >
     <option value="client">Cliente</option>
     <option value="provider">Provedor</option>
@@ -30,8 +31,12 @@ export const Register: React.FC = () => {
 
   <input
     type="tel"
-    className="w-full px-4 py-2.5 border border-secondary-200 rounded-xl focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition"
+    value={phone}
+    onChange={(e) => setPhone(e.target.value)}
+    className="w-full px-4 py-2.5 border border-secondary-200 rounded-xl"
     placeholder="(11) 99999-9999"
+  />
+</div>
   />
 </div>
   const [email, setEmail] = useState('');
