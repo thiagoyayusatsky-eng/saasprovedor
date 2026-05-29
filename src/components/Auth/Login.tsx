@@ -31,7 +31,7 @@ export const Login: React.FC = () => {
       <div className="w-full max-w-md">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-primary-900 mb-2">RefSaaS</h1>
+          <h1 className="text-4xl font-bold text-primary-900 mb-2">$ Indique E Ganhe $</h1>
           <p className="text-secondary-600">Seu sistema de indicações moderno</p>
         </div>
 

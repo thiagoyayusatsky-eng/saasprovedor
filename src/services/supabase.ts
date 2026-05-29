@@ -11,19 +11,41 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 // Auth Service
 export const authService = {
-  async register(email: string, password: string, fullName: string) {
-    const { data, error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        data: {
-          full_name: fullName,
-        }
+  async register(
+  email: string,
+  password: string,
+  fullName: string,
+  phone: string,
+  role: string
+) {
+  const { data, error } = await supabase.auth.signUp({
+    email,
+    password,
+    options: {
+      data: {
+        full_name: fullName,
+        phone: phone,
+        role: role
       }
-    });
-    if (error) throw error;
-    return data;
-  },
+    }
+  });
+
+  if (error) throw error;
+
+  if (data.user) {
+    await supabase.from('profiles').insert([
+      {
+        id: data.user.id,
+        full_name: fullName,
+        email: email,
+        phone: phone,
+        role: role
+      }
+    ]);
+  }
+
+  return data;
+},
 
   async login(email: string, password: string) {
     const { data, error } = await supabase.auth.signInWithPassword({
@@ -72,7 +94,7 @@ export const referralService = {
           referred_email: referredEmail,
           referred_name: referredName,
           status: 'pending',
-          commission_rate: 15,
+          commission_rate: 10,
           total_earnings: 0,
         }
       ])
@@ -104,7 +126,7 @@ export const referralService = {
       active_referrals: data.filter((r: any) => r.status === 'active').length,
       pending_referrals: data.filter((r: any) => r.status === 'pending').length,
       total_earnings: data.reduce((sum: number, r: any) => sum + r.total_earnings, 0),
-      average_commission: data.length > 0 ? 15 : 0,
+      average_commission: data.length > 0 ? 10 : 0,
     };
   }
 };
